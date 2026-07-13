@@ -1,0 +1,8 @@
+# Note: You MUST install Docker Desktop manually to run this agent!
+# Download from: https://www.docker.com/products/docker-desktop/
+websockets
+docker
+psutil
+aiohttp
+certifi
+rich
