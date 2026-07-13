@@ -57,9 +57,9 @@ Once the prerequisites are installed and running, open your terminal/command pro
 ### What happens next?
 * The agent will automatically detect your hardware (CPU cores, Total RAM).
 * It will connect to the Yukti Compute network and register your machine as available.
-* A local dashboard API will start at `http://localhost:8282` (which the UI can use to manage your sharing settings).
 * When a renter leases your hardware, the agent will automatically spin up a secure Docker container and provision a zrok Tunnel for them. You don't need to do anything manually!
-  * **Note for renters:** When connecting to the Jupyter Notebook interface, the password is `yukti123`.
+* After you register, go to https://compute.yukticompute.educhange.app/ and adjust your settings *
+  * **Note for renters:** When connecting to the Jupyter Notebook interface, the password is `gpushare123`.
 
 ## Troubleshooting
 
