@@ -193,7 +193,7 @@ async def agent_loop():
     # Start the local API server for the dashboard
     await start_local_server()
     
-    uri = f"wss://gpu-share-backend.manjunath-shankar.workers.dev/ws/agent/{GPU_ID}"
+    uri = f"wss://yukti-compute-backend.manjunath-shankar.workers.dev/ws/agent/{GPU_ID}"
     
     # Try connecting
     while True:
