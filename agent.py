@@ -268,21 +268,25 @@ async def agent_loop():
                                     
                                     # Extract URL
                                     if not tunnel_url:
-                                        if "http://" in line and ".zrok.io" in line:
-                                            parts = line.split()
-                                            for part in parts:
-                                                if part.startswith("http://") and ".zrok.io" in part:
-                                                    url = part.strip('"\'[](){}\x1b[0m')
-                                                    print(f"[TUNNEL] Provisioned! URL: {url}")
-                                                    
-                                                    # Send lease started event
-                                                    await websocket.send(json.dumps({
-                                                        "type": "lease_started",
-                                                        "lease_id": data['lease_id'],
-                                                        "connection_url": url
-                                                    }))
-                                                    tunnel_url = url
-                                                    break
+                                        import re
+                                        match = re.search(r'(https?://[a-zA-Z0-9.-]+\.zrok\.io)', line)
+                                        if match:
+                                            url = match.group(1)
+                                            
+                                            # The zrok frontend may serve HTTP but output HTTPS in logs
+                                            # We downgrade the link to HTTP to avoid ERR_SSL_PROTOCOL_ERROR if it's the case
+                                            url = url.replace("https://", "http://")
+                                            
+                                            print(f"[TUNNEL] Provisioned! URL: {url}")
+                                            
+                                            # Send lease started event
+                                            await websocket.send(json.dumps({
+                                                "type": "lease_started",
+                                                "lease_id": data['lease_id'],
+                                                "connection_url": url
+                                            }))
+                                            tunnel_url = url
+                                            break
                             
                             # Start a background task to constantly read stream
                             # We keep a strong reference to it so it doesn't get garbage collected
